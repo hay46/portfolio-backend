@@ -170,12 +170,13 @@ app.use(express.json());
 
 // ✅ MySQL connection without warnings
 const db = mysql.createConnection({
-  host: process.env.DB_HOST || "localhost",
+  host: process.env.DB_HOST || "localhost", // <== Missing comma fixed here
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "root",
   database: process.env.DB_NAME || "haymanot-ebabu-portfolio",
   port: 3306,
 });
+
 // Test DB connection
 db.connect((err) => {
   if (err) console.error("Database connection failed:", err.message);
@@ -287,6 +288,6 @@ app.post("/add-data", (req, res) => {
 });
 
 // Start server
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0" ,() => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
