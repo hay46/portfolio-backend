@@ -162,11 +162,11 @@ dotenv.config();
 
 const app = express();
 
-// ✅ Configuration
+// configuration
 const PORT = process.env.PORT ? Number(process.env.PORT) : 5000;
 const isProduction = process.env.NODE_ENV === "production";
 
-// ✅ Middleware
+//  Middleware
 app.use(helmet());
 app.use(
   cors({
@@ -176,7 +176,7 @@ app.use(
 );
 app.use(express.json());
 
-// ✅ Database Configuration - FIXED: Use proper connection options
+//  Database Configuration - FIXED: Use proper connection options
 const dbConfig = {
   host: process.env.DB_HOST || "localhost",
   user: process.env.DB_USER || "root",
@@ -203,7 +203,7 @@ if (isProduction) {
   db = mysql.createConnection(dbConfig);
 }
 
-// ✅ Database Connection Test
+//  Database Connection Test
 if (isProduction) {
   // For connection pool
   db.getConnection((err, connection) => {
@@ -225,7 +225,7 @@ if (isProduction) {
   });
 }
 
-// ✅ Utility Functions
+//  Utility Functions
 const executeQuery = (query, params = []) => {
   return new Promise((resolve, reject) => {
     if (isProduction) {
@@ -244,7 +244,7 @@ const executeQuery = (query, params = []) => {
   });
 };
 
-// ✅ Routes
+//  Routes
 
 // Health check (required for Render)
 app.get("/health", (req, res) => {
@@ -428,7 +428,7 @@ app.get("/contacts", async (req, res) => {
   }
 });
 
-// ✅ Error Handling Middleware
+//  Error Handling Middleware
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({
@@ -446,14 +446,14 @@ app.use((req, res) => {
   });
 });
 
-// ✅ Server Startup
+//  Server Startup
 app.listen(PORT, "0.0.0.0", () => {
   console.log(
-    `🚀 Server running in ${process.env.NODE_ENV || "development"} mode`
+    ` Server running in ${process.env.NODE_ENV || "development"} mode`
   );
-  console.log(`📍 Port: ${PORT}`);
-  console.log(`🌐 URL: http://localhost:${PORT}`);
-  console.log(`📊 Environment: ${process.env.NODE_ENV || "development"}`);
+  console.log(` Port: ${PORT}`);
+  console.log(` URL: http://localhost:${PORT}`);
+  console.log(` Environment: ${process.env.NODE_ENV || "development"}`);
   console.log(
     `🗄️ Database: ${isProduction ? "Connection Pool" : "Simple Connection"}`
   );
